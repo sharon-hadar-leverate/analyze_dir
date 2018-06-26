@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.6">
+    <id>Desharp</id>
+    <version>1.2.11</version>
+    <title>Desharp - C#/VB.NET Debugging Tool</title>
+    <authors>Tom Flidr</authors>
+    <owners>Tom Flidr</owners>
+    <licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>
+    <projectUrl>https://github.com/debug-sharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/debug-sharp/desharp/master/gfx/desharp-icon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Desharp - C#/VB .NET debuging utility to dump or log structuralized variables, exceptions, stack traces and much more into console, visual studio console, into html web response as floating window or into html/text log files on HDD.
+Download and install Visual Studio code snippets for Desharp: https://github.com/debug-sharp/codesnippets
+Dependencies .NET Framework &gt;= 4.0.0.0 (Microsoft.CSharp, System, System.Configuration, System.Core, System.Data, System.Data.DataSetExtensions, System.Web, System.Web.Extensions, System.Xml)</description>
+    <summary />
+    <releaseNotes>https://github.com/debug-sharp/desharp/releases</releaseNotes>
+    <copyright>Copyright ©	2017</copyright>
+    <language>en-US</language>
+    <tags>csharp cs vb-net vb asp-net debug debugging logging trace tracing tool utility web desktop windows wpf asp-net-mvc html-response stack-traces wpf-application</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+      <frameworkAssembly assemblyName="System" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Data.DataSetExtensions" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web.Extensions" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
