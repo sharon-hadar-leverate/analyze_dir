@@ -25,7 +25,7 @@ namespace list_dir
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+        
         }
 
         private FolderData set_json(string folder_path)
@@ -83,10 +83,13 @@ namespace list_dir
              {
                  root = set_json(openFolderDialog1.SelectedPath);
                  Console.Write(root);
-                 var jsonSerialiser = new JavaScriptSerializer();
+                 var json_pretty = root.ConvertToSTR();
+                 System.Windows.Forms.MessageBox.Show(json_pretty);
+                 
+                 //var jsonSerialiser = new JavaScriptSerializer();
                  try {
-                     var json = jsonSerialiser.Serialize(root);
-                     var json_pretty = JSON_PrettyPrinter.Process(json);
+                     //var json = jsonSerialiser.Serialize(root);
+                     //var json_pretty = JSON_PrettyPrinter.Process(json);
                      try
                      {
                         save_to_file(json_pretty, save_file_name, save_file_path);
