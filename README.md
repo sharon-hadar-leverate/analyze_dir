@@ -1,7 +1,7 @@
 # Analyze Directory:
 - Choose a saving file name  
-- Choose saved file directory  
-- Choose a directory to analys  
+- Choose saving file directory  
+- Choose a directory to analyze  
 
 
 ![alt text](https://github.com/sharon-hadar-leverate/analyze_dir/blob/master/list_dir/%E2%80%8F%E2%80%8F1.PNG)  
