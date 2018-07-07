@@ -10,4 +10,4 @@
 And get an Excel file with hierarchical indexing of the folders and files in the directory:
 
 
-![alt text](https://github.com/sharon-hadar-leverate/analyze_dir/blob/master/list_dir/2.PNG)
+![alt text](https://github.com/sharon-hadar-leverate/analyze_dir/blob/master/list_dir/3.PNG)
