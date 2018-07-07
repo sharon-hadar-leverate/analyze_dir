@@ -1,4 +1,5 @@
 # Analyze Directory:
+- Download "analyze_dir_setup.exe"  
 - Choose a saving file name  
 - Choose saving file directory  
 - Choose a directory to analyze  
