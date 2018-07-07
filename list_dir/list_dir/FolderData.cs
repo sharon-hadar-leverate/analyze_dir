@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace list_dir
 {
@@ -19,10 +21,10 @@ namespace list_dir
             folder_name = name;
             folders = new List<FolderData>();
         }
-        
+
         public string ConvertToSTR()
         {
-            int current; 
+            int current;
             if (index_stack.Count == 0)
             {
                 current = 1;
@@ -53,6 +55,6 @@ namespace list_dir
 
             return str;
         }
-        
+
     }
 }

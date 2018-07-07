@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Web.Script.Serialization;
+using System.Runtime.InteropServices;
 
 namespace list_dir
 {
@@ -25,7 +26,7 @@ namespace list_dir
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        
+
         }
 
         private FolderData set_json(string folder_path)
@@ -37,33 +38,55 @@ namespace list_dir
             string[] folders = Directory.GetDirectories(folder_path);
             foreach (var folder in folders)
             {
-               folder_data.folders.Add(set_json(folder));
+                folder_data.folders.Add(set_json(folder));
             }
             return folder_data;
         }
 
-        private void save_to_file(string json, string file_name, string file_path)
+
+        public void CreateExcel(string save_dir, FolderData folder_data)
         {
-            TextWriter writer;
-            var save_full_name = string.Format(@"{0}\{1}.txt", file_path, file_name);
-            try
+            var xlApp = new Microsoft.Office.Interop.Excel.Application();
+            if (xlApp == null)
             {
-                using (writer = new StreamWriter(save_full_name, append: false))
-                {
-                    writer.WriteLine(json);
-                }
+                MessageBox.Show("Excel is not properly installed!!");
+                return;
             }
-            catch
+            object misValue = System.Reflection.Missing.Value;
+            var xlWorkBook = xlApp.Workbooks.Add(misValue);
+            var xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            string file_content = folder_data.ConvertToSTR();
+            string[] lines = file_content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+            var i = 1;
+            foreach (var line in lines)
             {
-                System.Windows.Forms.MessageBox.Show(string.Format("you dont have permission to write to {0}", file_path));
-                throw new Exception();
-            }         
+                xlWorkSheet.Cells[i, 1] = line;
+                i++;
+            }
+
+            xlWorkBook.SaveAs(save_dir,
+                Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal,
+                misValue, misValue, misValue, misValue,
+                Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive,
+                misValue, misValue, misValue, misValue, misValue);
+
+            xlWorkBook.Close(true, misValue, misValue);
+            xlApp.Quit();
+
+            Marshal.ReleaseComObject(xlWorkSheet);
+            Marshal.ReleaseComObject(xlWorkBook);
+            Marshal.ReleaseComObject(xlApp);
+
+            MessageBox.Show(string.Format("Excel file created , you can find the file {0}", save_dir));
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
             var save_file_name = this.textBox1.Text;
-            if (string.IsNullOrEmpty(save_file_name)){
+            if (string.IsNullOrEmpty(save_file_name))
+            {
                 System.Windows.Forms.MessageBox.Show("please pick a name for your file");
                 return;
             }
@@ -74,52 +97,30 @@ namespace list_dir
                 return;
             }
 
-            Stream myStream = null;
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
             DialogResult result = openFolderDialog1.ShowDialog();
 
-             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
-             {
-                 root = set_json(openFolderDialog1.SelectedPath);
-                 Console.Write(root);
-                 var json_pretty = root.ConvertToSTR();
-                 System.Windows.Forms.MessageBox.Show(json_pretty);
-                 
-                 //var jsonSerialiser = new JavaScriptSerializer();
-                 try {
-                     //var json = jsonSerialiser.Serialize(root);
-                     //var json_pretty = JSON_PrettyPrinter.Process(json);
-                     try
-                     {
-                        save_to_file(json_pretty, save_file_name, save_file_path);
-                        System.Windows.Forms.MessageBox.Show(
-                        string.Format("Save Successfully!,\n preview '{0}'....",
-                        json_pretty.Substring(0, (int)(json_pretty.Length * 0.02))));
-                     }
-                     catch
-                     {
-                         System.Windows.Forms.MessageBox.Show("failed to save file");
-                     }
-                 }
-                 catch
-                 {
-                     System.Windows.Forms.MessageBox.Show("overflow json format: use a smaller directory");
-                 }
-             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-          FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
-
-                DialogResult result = openFolderDialog1.ShowDialog();
-
-                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
-                 {
-                    this.textBox2.Text =  openFolderDialog1.SelectedPath;
-                 }
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
+            {
+                root = set_json(openFolderDialog1.SelectedPath);
+                Console.Write(root);
+                var save_full_name = string.Format(@"{0}\{1}.xls", save_file_path, save_file_name);
+                CreateExcel(save_full_name, root);
             }
         }
 
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
+
+            DialogResult result = openFolderDialog1.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
+            {
+                this.textBox2.Text = openFolderDialog1.SelectedPath;
+            }
+        }
     }
+}
