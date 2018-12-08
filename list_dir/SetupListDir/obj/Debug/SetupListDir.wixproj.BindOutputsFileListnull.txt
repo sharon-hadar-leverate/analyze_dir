@@ -1,0 +1,3 @@
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\SetupListDir\bin\Debug\cab1.cab
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\SetupListDir\bin\Debug\SetupListDir.msi
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\SetupListDir\bin\Debug\SetupListDir.wixpdb

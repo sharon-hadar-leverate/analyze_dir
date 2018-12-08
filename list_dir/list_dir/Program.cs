@@ -19,4 +19,8 @@ namespace list_dir
             Application.Run(new Form1());
         }
     }
+
+      //    <Directory Id="ProgramMenuFolder">
+      //  <Directory Id="ApplicationProgramsFolder" Name="list-dir"/>
+      // </Directory>
 }

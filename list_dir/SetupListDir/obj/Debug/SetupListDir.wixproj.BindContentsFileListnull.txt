@@ -1,0 +1,2 @@
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\list_dir.exe
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\list_dir.exe.config

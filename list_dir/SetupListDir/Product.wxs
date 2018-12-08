@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define list_dir_TargetDir=$(var.list_dir.TargetDir)?>
+	<Product Id="396d0d48-a42f-4995-b1a8-3a9c5fd3f831" Name="SetupListDir" Language="1033" Version="1.0.0.0" Manufacturer="SharonHadar" UpgradeCode="1ca91c9d-888a-467a-aacf-aab1d6e61f8e">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="SetupListDir" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+		</Feature>
+	</Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="SetupListDir">
+          <Directory Id="Files" Name="Files" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="SetupListDir" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+
+
+  <Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="eded9495-2e77-48e9-9ee6-49a9648509a6">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="SetupListDir" Description="SetupListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\SetupListDir" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="ApplicationShortcutDesktop" Guid="513f6c75-18fa-4b36-9410-89ece785207c">
+        <Shortcut Id="ApplicationDesktopShortcut" Name="SetupListDir" Description="SetupListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\SetupListDir" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+  
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="list_dir.exe" Guid="df8d17bf-2f17-43be-87d1-41dd66f805ec">
+			  <File Id="list_dir.exe" Name="list_dir.exe" Source="$(var.list_dir_TargetDir)list_dir.exe" />
+			</Component>
+			<Component Id="list_dir.exe.config" Guid="51b75ccd-8336-4fb9-be52-5f2433b7fdd5">
+			  <File Id="list_dir.exe.config" Name="list_dir.exe.config" Source="$(var.list_dir_TargetDir)list_dir.exe.config" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
