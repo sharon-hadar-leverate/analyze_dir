@@ -22,7 +22,20 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons8-active-directory-32.ico" />
+    <Content Include="images\installer_background.bmp" />
+    <Content Include="images\installer_top-banner.bmp" />
+    <Content Include="License.rtf" />
     <Content Include="SetupListDir.wax" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\list_dir\list_dir.csproj">

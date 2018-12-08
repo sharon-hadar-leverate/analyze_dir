@@ -27,3 +27,4 @@ C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\Newtonsoft
 C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\Desharp.xml
 C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\obj\Debug\list_dir.csproj.ResolveComReference.cache
+C:\Users\Sharon\Documents\git\analyze_dir\list_dir\list_dir\bin\Debug\files\text.txt
