@@ -46,7 +46,10 @@ namespace list_dir
                 index_stack.Pop();
                 i++;
             }
+
+            i += folders.Count > 0 && files.Count > 0 ? 1 : 0; 
             i = i == 0 ? 1 : i;
+
             foreach (var file in files)
             {
                 str += string.Format("{0}.{1}-{2} \r\n", count_index, i, file);
