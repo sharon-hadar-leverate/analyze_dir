@@ -26,7 +26,7 @@ namespace list_dir
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.progressBar1.Hide();
         }
 
         private FolderData set_json(string folder_path)
@@ -62,8 +62,14 @@ namespace list_dir
             var i = 1;
             foreach (var line in lines)
             {
-                xlWorkSheet.Cells[i, 1] = line;
-                i++;
+                string[] splitted = line.Split(new string[] { "-" }, 2, StringSplitOptions.None);
+                if (splitted.Count() > 1)
+                {
+                    xlWorkSheet.Cells[i, 1] = splitted[0];
+                    xlWorkSheet.Cells[i, 2] = splitted[1];
+                    i++;
+                }
+                
             }
 
             xlWorkBook.SaveAs(save_dir,
@@ -79,11 +85,14 @@ namespace list_dir
             Marshal.ReleaseComObject(xlWorkBook);
             Marshal.ReleaseComObject(xlApp);
 
+            this.progressBar1.Increment(10000);
             MessageBox.Show(string.Format("Excel file created , you can find the file {0}", save_dir));
+            this.progressBar1.Hide();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
+            
             var save_file_name = this.textBox1.Text;
             if (string.IsNullOrEmpty(save_file_name))
             {
@@ -97,17 +106,24 @@ namespace list_dir
                 return;
             }
 
+            
+
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
             DialogResult result = openFolderDialog1.ShowDialog();
 
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
             {
+                this.progressBar1.Value = 0;
+                this.progressBar1.Show();
+                this.timer1.Start();
+
                 root = set_json(openFolderDialog1.SelectedPath);
                 Console.Write(root);
                 var save_full_name = string.Format(@"{0}\{1}.xls", save_file_path, save_file_name);
                 CreateExcel(save_full_name, root);
             }
+            
         }
 
 
@@ -121,6 +137,11 @@ namespace list_dir
             {
                 this.textBox2.Text = openFolderDialog1.SelectedPath;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.progressBar1.Increment(1);
         }
     }
 }

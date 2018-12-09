@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>67f4ff29-7c6f-4e13-b4d9-989662d6abc4</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>SetupListDir</OutputName>
+    <OutputName>Analyze Directory Setup</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
