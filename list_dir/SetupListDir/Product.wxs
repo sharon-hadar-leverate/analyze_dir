@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define list_dir_TargetDir=$(var.list_dir.TargetDir)?>
-	<Product Id="396d0d48-a42f-4995-b1a8-3a9c5fd3f831" Name="SetupListDir" Language="1033" Version="1.0.0.0" Manufacturer="SharonHadar" UpgradeCode="1ca91c9d-888a-467a-aacf-aab1d6e61f8e">
+	<Product Id="396d0d48-a42f-4995-b1a8-3a9c5fd3f831" Name="Analyze Directory" Language="1033" Version="1.0.0.0" Manufacturer="SharonHadar" UpgradeCode="1ca91c9d-888a-467a-aacf-aab1d6e61f8e">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Icon Id="icon.ico" SourceFile="$(var.ProjectDir)icons8-active-directory-32.ico" />
@@ -16,7 +16,7 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate />
 
-		<Feature Id="ProductFeature" Title="SetupListDir" Level="1">
+		<Feature Id="ProductFeature" Title="Analyze Directory" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
@@ -27,12 +27,12 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="SetupListDir">
+        <Directory Id="INSTALLFOLDER" Name="Analyze Directory">
           <Directory Id="Files" Name="Files" />
         </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="SetupListDir" />
+        <Directory Id="ApplicationProgramsFolder" Name="Analyze Directory" />
       </Directory>
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
@@ -42,16 +42,16 @@
   <Fragment>
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="eded9495-2e77-48e9-9ee6-49a9648509a6">
-        <Shortcut Id="ApplicationStartMenuShortcut" Name="ListDir" Description="ListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Analyze Directory" Description="ListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
         <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\ListDir" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\AnalyzeDirectory" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="DesktopFolder">
       <Component Id="ApplicationShortcutDesktop" Guid="513f6c75-18fa-4b36-9410-89ece785207c">
-        <Shortcut Id="ApplicationDesktopShortcut" Name="ListDir" Description="ListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Analyze Directory" Description="ListDir" Target="[INSTALLFOLDER]list_dir.exe" WorkingDirectory="INSTALLFOLDER" />
         <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\ListDir" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\AnalyzeDirectory" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
