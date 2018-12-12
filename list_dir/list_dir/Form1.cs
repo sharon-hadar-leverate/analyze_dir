@@ -46,6 +46,7 @@ namespace list_dir
 
         public void CreateExcel(string save_dir, FolderData folder_data)
         {
+            var Error = false;
             var xlApp = new Microsoft.Office.Interop.Excel.Application();
             if (xlApp == null)
             {
@@ -70,30 +71,43 @@ namespace list_dir
                     xlWorkSheet.Cells[i, 2] = splitted[1];
                     i++;
                 }
-                
+
             }
+                try
+                {
+                xlWorkBook.SaveAs(save_dir,
+                    Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal,
+                    misValue, misValue, misValue, misValue,
+                    Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive,
+                    misValue, misValue, misValue, misValue, misValue);
+                }
+                catch
+                {
+                    Error = true;
+                }
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
 
-            xlWorkBook.SaveAs(save_dir,
-                Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal,
-                misValue, misValue, misValue, misValue,
-                Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive,
-                misValue, misValue, misValue, misValue, misValue);
-
-            xlWorkBook.Close(true, misValue, misValue);
-            xlApp.Quit();
-
-            Marshal.ReleaseComObject(xlWorkSheet);
-            Marshal.ReleaseComObject(xlWorkBook);
-            Marshal.ReleaseComObject(xlApp);
+                Marshal.ReleaseComObject(xlWorkSheet);
+                Marshal.ReleaseComObject(xlWorkBook);
+                Marshal.ReleaseComObject(xlApp);
+           
 
             this.progressBar1.Increment(10000);
-            MessageBox.Show(string.Format("Excel file created , you can find the file {0}", save_dir));
+            if (!Error)
+            {
+                MessageBox.Show(string.Format("Excel file created , you can find the file {0}", save_dir));
+            }
+            else{
+                MessageBox.Show(string.Format("Failed to save file to {0}", save_dir));
+            }
+            
             this.progressBar1.Hide();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            
+
             var save_file_name = this.textBox1.Text;
             if (string.IsNullOrEmpty(save_file_name))
             {
@@ -106,8 +120,6 @@ namespace list_dir
                 System.Windows.Forms.MessageBox.Show("please pick a directory to save the file in");
                 return;
             }
-
-            
 
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
@@ -124,7 +136,7 @@ namespace list_dir
                 var save_full_name = string.Format(@"{0}\{1}.xls", save_file_path, save_file_name);
                 CreateExcel(save_full_name, root);
             }
-            
+
         }
 
 
