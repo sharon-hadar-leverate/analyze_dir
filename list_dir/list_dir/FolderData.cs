@@ -22,12 +22,18 @@ namespace list_dir
             folders = new List<FolderData>();
         }
 
+        public void RestartStack()
+        {
+            index_stack = new Stack<int>();
+        }
+
         public string ConvertToSTR()
         {
             int current;
             if (index_stack.Count == 0)
             {
                 current = 1;
+                // current = 0;
             }
             else
             {

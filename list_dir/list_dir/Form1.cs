@@ -56,6 +56,7 @@ namespace list_dir
             var xlWorkBook = xlApp.Workbooks.Add(misValue);
             var xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
+            folder_data.RestartStack();
             string file_content = folder_data.ConvertToSTR();
             string[] lines = file_content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
