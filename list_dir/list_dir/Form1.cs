@@ -43,7 +43,6 @@ namespace list_dir
             return folder_data;
         }
 
-
         public void CreateExcel(string save_dir, FolderData folder_data)
         {
             var Error = false;
@@ -105,42 +104,52 @@ namespace list_dir
             this.progressBar1.Hide();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
+        private void start_analyze_dir(object sender, System.EventArgs e)
         {
 
-            var save_file_name = this.textBox1.Text;
+            var save_file_name = this.file_saving_name.Text;
             if (string.IsNullOrEmpty(save_file_name))
             {
                 System.Windows.Forms.MessageBox.Show("please pick a name for your file");
                 return;
             }
-            var save_file_path = this.textBox2.Text;
+            var save_file_path = this.saving_dir.Text;
             if (string.IsNullOrEmpty(save_file_path))
             {
                 System.Windows.Forms.MessageBox.Show("please pick a directory to save the file in");
                 return;
             }
-
-            FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
-
-            DialogResult result = openFolderDialog1.ShowDialog();
-
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
+            else if (!Directory.Exists(save_file_path))
             {
-                this.progressBar1.Value = 0;
-                this.progressBar1.Show();
-                this.timer1.Start();
-
-                root = set_json(openFolderDialog1.SelectedPath);
-                Console.Write(root);
-                var save_full_name = string.Format(@"{0}\{1}.xls", save_file_path, save_file_name);
-                CreateExcel(save_full_name, root);
+                System.Windows.Forms.MessageBox.Show("the directory you choose to save files doesnt exist");
+                return;
             }
 
+            var analyze_dir = this.dir_to_analyze.Text;
+            if (string.IsNullOrEmpty(analyze_dir))
+            {
+                System.Windows.Forms.MessageBox.Show("please pick a directory to analyze");
+                return;
+            }
+            else if (!Directory.Exists(analyze_dir))
+            {
+                System.Windows.Forms.MessageBox.Show("the directory you choose to analyze doesnt exist");
+                return;
+            }
+
+
+            this.progressBar1.Value = 0;
+            this.progressBar1.Show();
+            this.timer1.Start();
+
+            root = set_json(analyze_dir);
+            Console.Write(root);
+            var save_full_name = string.Format(@"{0}\{1}.xls", save_file_path, save_file_name);
+            CreateExcel(save_full_name, root);
         }
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void browse_saving_dir_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
@@ -148,13 +157,26 @@ namespace list_dir
 
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
             {
-                this.textBox2.Text = openFolderDialog1.SelectedPath;
+                this.saving_dir.Text = openFolderDialog1.SelectedPath;
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.progressBar1.Increment(1);
+        }
+
+
+        private void browse_anaylze_dir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
+
+            DialogResult result = openFolderDialog1.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(openFolderDialog1.SelectedPath))
+            {
+                this.dir_to_analyze.Text = openFolderDialog1.SelectedPath;
+            }
         }
     }
 }
