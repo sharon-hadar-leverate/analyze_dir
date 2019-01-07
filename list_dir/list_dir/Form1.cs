@@ -178,5 +178,10 @@ namespace list_dir
                 this.dir_to_analyze.Text = openFolderDialog1.SelectedPath;
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.panel2.Visible = false;
+        }
     }
 }

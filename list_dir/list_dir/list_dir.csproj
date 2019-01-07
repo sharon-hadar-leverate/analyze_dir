@@ -133,6 +133,7 @@
     </Content>
     <Content Include="icons8-active-directory-32.ico" />
     <Content Include="Properties\installer_background.bmp" />
+    <Content Include="Resources\icons8-active-directory-32.ico" />
     <None Include="Resources\installer_background.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
